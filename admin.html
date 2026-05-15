@@ -7,7 +7,17 @@
   <meta name="viewport"
     content="width=device-width, initial-scale=1.0">
 
-  <title>Admin | LukeHub</title>
+  <title>Admin Dashboard | LukeHub</title>
+
+  <link rel="preconnect"
+    href="https://fonts.googleapis.com">
+
+  <link rel="preconnect"
+    href="https://fonts.gstatic.com"
+    crossorigin>
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet">
 
   <link rel="stylesheet"
     href="style.css">
@@ -16,69 +26,125 @@
 
 <body>
 
-  <div class="admin-container">
+  <!-- NAVBAR -->
+
+  <header class="navbar">
+
+    <div class="logo">
+      LukeHub
+    </div>
+
+    <nav>
+
+      <a href="index.html">
+        Home
+      </a>
+
+      <a href="games.html">
+        Games
+      </a>
+
+    </nav>
+
+  </header>
+
+  <!-- LOGIN -->
+
+  <div class="admin-container"
+    id="login-screen">
 
     <div class="admin-card">
 
-      <!-- LOGIN -->
+      <h1>
+        Admin Login
+      </h1>
 
-      <div id="login-box">
+      <input
+        type="email"
+        id="email"
+        placeholder="Email">
 
-        <h1>
-          Admin Login
-        </h1>
+      <input
+        type="password"
+        id="password"
+        placeholder="Senha">
 
-        <input
-          type="email"
-          id="email"
-          placeholder="Email">
+      <button
+        onclick="login()"
+        class="primary-btn">
 
-        <input
-          type="password"
-          id="password"
-          placeholder="Senha">
+        Entrar
 
-        <button
-          onclick="login()"
-          class="primary-btn">
+      </button>
 
-          Entrar
+    </div>
 
-        </button>
+  </div>
 
-      </div>
+  <!-- DASHBOARD -->
 
-      <!-- PAINEL -->
+  <div class="dashboard"
+    id="dashboard"
+    style="display:none;">
 
-      <div id="admin-panel"
-        style="display:none;">
+    <div class="dashboard-header">
 
-        <h2>
-          Adicionar jogo
-        </h2>
+      <h1>
+        Dashboard
+      </h1>
 
-        <input
-          type="text"
-          id="game-name"
-          placeholder="Nome do jogo">
+      <button
+        onclick="logout()"
+        class="secondary-btn">
 
-        <input
-          type="text"
-          id="game-image"
-          placeholder="Link da imagem">
+        Logout
 
-        <input
-          type="text"
-          id="game-download"
-          placeholder="Link download">
+      </button>
 
-        <button
-          onclick="addGame()"
-          class="primary-btn">
+    </div>
 
-          Publicar
+    <!-- ADD GAME -->
 
-        </button>
+    <div class="admin-card">
+
+      <h2>
+        Upload Game
+      </h2>
+
+      <input
+        type="text"
+        id="game-name"
+        placeholder="Nome do jogo">
+
+      <input
+        type="text"
+        id="game-image"
+        placeholder="Link da imagem">
+
+      <input
+        type="text"
+        id="game-download"
+        placeholder="Link do download">
+
+      <button
+        onclick="addGame()"
+        class="primary-btn">
+
+        Publicar Jogo
+
+      </button>
+
+    </div>
+
+    <!-- GAME LIST -->
+
+    <div class="admin-card">
+
+      <h2>
+        Uploaded Games
+      </h2>
+
+      <div id="games-list">
 
       </div>
 
@@ -94,6 +160,8 @@
     const ADMIN_PASSWORD =
       "123456";
 
+    /* LOGIN */
+
     function login() {
 
       const email =
@@ -107,13 +175,12 @@
         password === ADMIN_PASSWORD
       ) {
 
-        document
-          .getElementById("login-box")
-          .style.display = "none";
+        localStorage.setItem(
+          "adminLogged",
+          "true"
+        );
 
-        document
-          .getElementById("admin-panel")
-          .style.display = "block";
+        showDashboard();
 
       } else {
 
@@ -123,20 +190,82 @@
 
     }
 
+    /* LOGOUT */
+
+    function logout() {
+
+      localStorage.removeItem(
+        "adminLogged"
+      );
+
+      location.reload();
+
+    }
+
+    /* MOSTRAR DASHBOARD */
+
+    function showDashboard() {
+
+      document
+        .getElementById("login-screen")
+        .style.display = "none";
+
+      document
+        .getElementById("dashboard")
+        .style.display = "block";
+
+      loadGames();
+
+    }
+
+    /* VERIFICA LOGIN */
+
+    if (
+      localStorage.getItem(
+        "adminLogged"
+      ) === "true"
+    ) {
+
+      showDashboard();
+
+    }
+
+    /* ADD GAME */
+
     function addGame() {
 
       const name =
-        document.getElementById("game-name").value;
+        document.getElementById(
+          "game-name"
+        ).value;
 
       const image =
-        document.getElementById("game-image").value;
+        document.getElementById(
+          "game-image"
+        ).value;
 
       const download =
-        document.getElementById("game-download").value;
+        document.getElementById(
+          "game-download"
+        ).value;
+
+      if (
+        !name ||
+        !image ||
+        !download
+      ) {
+
+        alert("Preencha tudo");
+
+        return;
+
+      }
 
       const games =
         JSON.parse(
-          localStorage.getItem("games")
+          localStorage.getItem(
+            "games"
+          )
         ) || [];
 
       games.push({
@@ -150,7 +279,86 @@
         JSON.stringify(games)
       );
 
-      alert("Jogo publicado!");
+      alert("Jogo publicado");
+
+      loadGames();
+
+    }
+
+    /* CARREGAR JOGOS */
+
+    function loadGames() {
+
+      const gamesList =
+        document.getElementById(
+          "games-list"
+        );
+
+      gamesList.innerHTML = "";
+
+      const games =
+        JSON.parse(
+          localStorage.getItem(
+            "games"
+          )
+        ) || [];
+
+      games.forEach((game, index) => {
+
+        gamesList.innerHTML += `
+
+        <div class="uploaded-game">
+
+          <img
+            src="${game.image}">
+
+          <div class="uploaded-info">
+
+            <h3>
+              ${game.name}
+            </h3>
+
+            <p>
+              ${game.download}
+            </p>
+
+          </div>
+
+          <button
+            class="delete-btn"
+            onclick="deleteGame(${index})">
+
+            Delete
+
+          </button>
+
+        </div>
+
+        `;
+
+      });
+
+    }
+
+    /* APAGAR */
+
+    function deleteGame(index) {
+
+      const games =
+        JSON.parse(
+          localStorage.getItem(
+            "games"
+          )
+        ) || [];
+
+      games.splice(index, 1);
+
+      localStorage.setItem(
+        "games",
+        JSON.stringify(games)
+      );
+
+      loadGames();
 
     }
 
