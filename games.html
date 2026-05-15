@@ -1,14 +1,158 @@
 <!DOCTYPE html>
+<html lang="pt-BR">
+<head>
 
-    const grid = document.getElementById('games-grid');
+  <meta charset="UTF-8">
 
-    const games = JSON.parse(localStorage.getItem('games')) || [
+  <meta name="viewport"
+    content="width=device-width, initial-scale=1.0">
+
+  <title>Games | LukeHub</title>
+
+  <!-- FONTE -->
+
+  <link rel="preconnect"
+    href="https://fonts.googleapis.com">
+
+  <link rel="preconnect"
+    href="https://fonts.gstatic.com"
+    crossorigin>
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet">
+
+  <!-- CSS -->
+
+  <link rel="stylesheet"
+    href="style.css">
+
+</head>
+
+<body>
+
+  <!-- NAVBAR -->
+
+  <header class="navbar">
+
+    <div class="logo">
+      LukeHub
+    </div>
+
+    <nav>
+
+      <a href="index.html">
+        Home
+      </a>
+
+      <a href="games.html">
+        Games
+      </a>
+
+      <a href="admin.html">
+        Admin
+      </a>
+
+    </nav>
+
+  </header>
+
+  <!-- MAIN -->
+
+  <main class="games-page">
+
+    <div class="section-header">
+
+      <h2>
+        Featured Games
+      </h2>
+
+      <p>
+        Community downloads
+      </p>
+
+    </div>
+
+    <!-- GRID -->
+
+    <div class="games-grid"
+      id="games-grid">
+
+    </div>
+
+  </main>
+
+  <!-- FOOTER -->
+
+  <footer class="footer">
+
+    © 2026 LukeHub
+
+  </footer>
+
+  <!-- SCRIPT -->
+
+  <script>
+
+    const grid =
+      document.getElementById(
+        "games-grid"
+      );
+
+    /* JOGOS PADRÃO */
+
+    const defaultGames = [
+
       {
-        name: 'Minecraft',
-        image: 'https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=1200&auto=format&fit=crop',
-        download: 'https://minecraft.net'
+
+        name: "Minecraft",
+
+        image:
+          "https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=1200&auto=format&fit=crop",
+
+        download:
+          "https://minecraft.net"
+
+      },
+
+      {
+
+        name: "Cyber Racing",
+
+        image:
+          "https://images.unsplash.com/photo-1511512578047-dfb367046420?q=80&w=1200&auto=format&fit=crop",
+
+        download:
+          "https://example.com"
+
+      },
+
+      {
+
+        name: "Battle Arena",
+
+        image:
+          "https://images.unsplash.com/photo-1493711662062-fa541adb3fc8?q=80&w=1200&auto=format&fit=crop",
+
+        download:
+          "https://example.com"
+
       }
+
     ];
+
+    /* PEGA JOGOS DO LOCALSTORAGE */
+
+    const savedGames =
+      JSON.parse(
+        localStorage.getItem("games")
+      );
+
+    const games =
+      savedGames && savedGames.length > 0
+      ? savedGames
+      : defaultGames;
+
+    /* RENDERIZA */
 
     games.forEach(game => {
 
@@ -16,16 +160,29 @@
 
       <div class="game-card">
 
-        <img src="${game.image}">
+        <img
+          src="${game.image}"
+          alt="${game.name}">
 
         <div class="game-content">
 
-          <h3>${game.name}</h3>
+          <h3>
+            ${game.name}
+          </h3>
 
-          <a href="${game.download}" target="_blank">
+          <p>
+            Community download
+          </p>
+
+          <a href="${game.download}"
+            target="_blank">
+
             <button class="install-btn">
+
               Download
+
             </button>
+
           </a>
 
         </div>
