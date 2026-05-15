@@ -1,9 +1,83 @@
 <!DOCTYPE html>
+<html lang="pt-BR">
+<head>
 
-        <input type="text" id="game-download" placeholder="Link do download">
+  <meta charset="UTF-8">
 
-        <button onclick="addGame()" class="primary-btn">
-          Publicar Jogo
+  <meta name="viewport"
+    content="width=device-width, initial-scale=1.0">
+
+  <title>Admin | LukeHub</title>
+
+  <link rel="stylesheet"
+    href="style.css">
+
+</head>
+
+<body>
+
+  <div class="admin-container">
+
+    <div class="admin-card">
+
+      <!-- LOGIN -->
+
+      <div id="login-box">
+
+        <h1>
+          Admin Login
+        </h1>
+
+        <input
+          type="email"
+          id="email"
+          placeholder="Email">
+
+        <input
+          type="password"
+          id="password"
+          placeholder="Senha">
+
+        <button
+          onclick="login()"
+          class="primary-btn">
+
+          Entrar
+
+        </button>
+
+      </div>
+
+      <!-- PAINEL -->
+
+      <div id="admin-panel"
+        style="display:none;">
+
+        <h2>
+          Adicionar jogo
+        </h2>
+
+        <input
+          type="text"
+          id="game-name"
+          placeholder="Nome do jogo">
+
+        <input
+          type="text"
+          id="game-image"
+          placeholder="Link da imagem">
+
+        <input
+          type="text"
+          id="game-download"
+          placeholder="Link download">
+
+        <button
+          onclick="addGame()"
+          class="primary-btn">
+
+          Publicar
+
         </button>
 
       </div>
@@ -14,26 +88,36 @@
 
   <script>
 
-    const ADMIN_EMAIL = 'admin@lukehub.com';
-    const ADMIN_PASSWORD = '123456';
+    const ADMIN_EMAIL =
+      "admin@lukehub.com";
+
+    const ADMIN_PASSWORD =
+      "123456";
 
     function login() {
 
-      const email = document.getElementById('email').value;
-      const password = document.getElementById('password').value;
+      const email =
+        document.getElementById("email").value;
+
+      const password =
+        document.getElementById("password").value;
 
       if (
         email === ADMIN_EMAIL &&
         password === ADMIN_PASSWORD
       ) {
 
-        document.getElementById('panel').style.display = 'block';
+        document
+          .getElementById("login-box")
+          .style.display = "none";
 
-        alert('Login realizado');
+        document
+          .getElementById("admin-panel")
+          .style.display = "block";
 
       } else {
 
-        alert('Dados incorretos');
+        alert("Dados incorretos");
 
       }
 
@@ -41,13 +125,19 @@
 
     function addGame() {
 
-      const name = document.getElementById('game-name').value;
+      const name =
+        document.getElementById("game-name").value;
 
-      const image = document.getElementById('game-image').value;
+      const image =
+        document.getElementById("game-image").value;
 
-      const download = document.getElementById('game-download').value;
+      const download =
+        document.getElementById("game-download").value;
 
-      const games = JSON.parse(localStorage.getItem('games')) || [];
+      const games =
+        JSON.parse(
+          localStorage.getItem("games")
+        ) || [];
 
       games.push({
         name,
@@ -55,9 +145,12 @@
         download
       });
 
-      localStorage.setItem('games', JSON.stringify(games));
+      localStorage.setItem(
+        "games",
+        JSON.stringify(games)
+      );
 
-      alert('Jogo publicado');
+      alert("Jogo publicado!");
 
     }
 
