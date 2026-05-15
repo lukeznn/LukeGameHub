@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+
+        <input type="text" id="game-download" placeholder="Link do download">
+
+        <button onclick="addGame()" class="primary-btn">
+          Publicar Jogo
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <script>
+
+    const ADMIN_EMAIL = 'admin@lukehub.com';
+    const ADMIN_PASSWORD = '123456';
+
+    function login() {
+
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+
+      if (
+        email === ADMIN_EMAIL &&
+        password === ADMIN_PASSWORD
+      ) {
+
+        document.getElementById('panel').style.display = 'block';
+
+        alert('Login realizado');
+
+      } else {
+
+        alert('Dados incorretos');
+
+      }
+
+    }
+
+    function addGame() {
+
+      const name = document.getElementById('game-name').value;
+
+      const image = document.getElementById('game-image').value;
+
+      const download = document.getElementById('game-download').value;
+
+      const games = JSON.parse(localStorage.getItem('games')) || [];
+
+      games.push({
+        name,
+        image,
+        download
+      });
+
+      localStorage.setItem('games', JSON.stringify(games));
+
+      alert('Jogo publicado');
+
+    }
+
+  </script>
+
+</body>
+</html>
