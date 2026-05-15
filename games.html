@@ -1,1 +1,42 @@
+<!DOCTYPE html>
 
+    const grid = document.getElementById('games-grid');
+
+    const games = JSON.parse(localStorage.getItem('games')) || [
+      {
+        name: 'Minecraft',
+        image: 'https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=1200&auto=format&fit=crop',
+        download: 'https://minecraft.net'
+      }
+    ];
+
+    games.forEach(game => {
+
+      grid.innerHTML += `
+
+      <div class="game-card">
+
+        <img src="${game.image}">
+
+        <div class="game-content">
+
+          <h3>${game.name}</h3>
+
+          <a href="${game.download}" target="_blank">
+            <button class="install-btn">
+              Download
+            </button>
+          </a>
+
+        </div>
+
+      </div>
+
+      `;
+
+    });
+
+  </script>
+
+</body>
+</html>
