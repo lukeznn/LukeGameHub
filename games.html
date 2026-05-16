@@ -9,7 +9,7 @@
 
   <title>Games | LukeHub</title>
 
-  <!-- FONTE -->
+  <!-- FONT -->
 
   <link rel="preconnect"
     href="https://fonts.googleapis.com">
@@ -89,109 +89,135 @@
 
   </footer>
 
-  <!-- SCRIPT -->
+  <!-- FIREBASE -->
 
-  <script>
+  <script type="module">
+
+    import { initializeApp }
+    from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+
+    import {
+      getDatabase,
+      ref,
+      onValue
+    }
+    from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+
+    /* FIREBASE CONFIG */
+
+    const firebaseConfig = {
+
+      apiKey:
+        "AIzaSyASarP-JJbYwSjrfRMzGOvBnHMKWYgvJus",
+
+      authDomain:
+        "lukegamehub.firebaseapp.com",
+
+      databaseURL:
+        "https://lukegamehub-default-rtdb.firebaseio.com",
+
+      projectId:
+        "lukegamehub",
+
+      storageBucket:
+        "lukegamehub.firebasestorage.app",
+
+      messagingSenderId:
+        "1043413187920",
+
+      appId:
+        "1:1043413187920:web:9475d6268bac3f803d8055",
+
+      measurementId:
+        "G-96HEW587C1"
+
+    };
+
+    /* INIT */
+
+    const app =
+      initializeApp(firebaseConfig);
+
+    const db =
+      getDatabase(app);
+
+    /* GRID */
 
     const grid =
       document.getElementById(
         "games-grid"
       );
 
-    /* JOGOS PADRÃO */
+    /* LOAD GAMES */
 
-    const defaultGames = [
+    const gamesRef =
+      ref(db, "games");
 
-      {
+    onValue(
+      gamesRef,
+      snapshot => {
 
-        name: "Minecraft",
+        grid.innerHTML = "";
 
-        image:
-          "https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=1200&auto=format&fit=crop",
+        const data =
+          snapshot.val();
 
-        download:
-          "https://minecraft.net"
+        if (!data) {
 
-      },
+          grid.innerHTML = `
+            <p>
+              Nenhum jogo publicado.
+            </p>
+          `;
 
-      {
+          return;
 
-        name: "Cyber Racing",
+        }
 
-        image:
-          "https://images.unsplash.com/photo-1511512578047-dfb367046420?q=80&w=1200&auto=format&fit=crop",
+        Object.keys(data)
+        .forEach(key => {
 
-        download:
-          "https://example.com"
+          const game =
+            data[key];
 
-      },
+          grid.innerHTML += `
 
-      {
+          <div class="game-card">
 
-        name: "Battle Arena",
+            <img
+              src="${game.image}">
 
-        image:
-          "https://images.unsplash.com/photo-1493711662062-fa541adb3fc8?q=80&w=1200&auto=format&fit=crop",
+            <div class="game-content">
 
-        download:
-          "https://example.com"
+              <h3>
+                ${game.name}
+              </h3>
+
+              <p>
+                Community download
+              </p>
+
+              <a href="${game.download}"
+                target="_blank">
+
+                <button class="install-btn">
+
+                  Download
+
+                </button>
+
+              </a>
+
+            </div>
+
+          </div>
+
+          `;
+
+        });
 
       }
-
-    ];
-
-    /* PEGA JOGOS DO LOCALSTORAGE */
-
-    const savedGames =
-      JSON.parse(
-        localStorage.getItem("games")
-      );
-
-    const games =
-      savedGames && savedGames.length > 0
-      ? savedGames
-      : defaultGames;
-
-    /* RENDERIZA */
-
-    games.forEach(game => {
-
-      grid.innerHTML += `
-
-      <div class="game-card">
-
-        <img
-          src="${game.image}"
-          alt="${game.name}">
-
-        <div class="game-content">
-
-          <h3>
-            ${game.name}
-          </h3>
-
-          <p>
-            Community download
-          </p>
-
-          <a href="${game.download}"
-            target="_blank">
-
-            <button class="install-btn">
-
-              Download
-
-            </button>
-
-          </a>
-
-        </div>
-
-      </div>
-
-      `;
-
-    });
+    );
 
   </script>
 
