@@ -1,4 +1,4 @@
-<!-- admin.html -->
+<!-- admin.html COMPLETO -->
 
 <!DOCTYPE html>
 <html lang="pt-BR">
@@ -163,7 +163,7 @@
 
     </div>
 
-    <!-- LIST -->
+    <!-- GAMES -->
 
     <div class="admin-card">
 
@@ -183,6 +183,73 @@
 
   </div>
 
+  <!-- EDIT MODAL -->
+
+  <div class="editor-modal"
+    id="editor-modal">
+
+    <div class="editor-card">
+
+      <div class="editor-top">
+
+        <h2>
+          Edit Game
+        </h2>
+
+        <button
+          class="close-btn"
+          onclick="closeEditor()">
+
+          ✕
+
+        </button>
+
+      </div>
+
+      <input
+        type="text"
+        id="edit-name"
+        placeholder="Nome">
+
+      <input
+        type="text"
+        id="edit-image"
+        placeholder="Imagem">
+
+      <input
+        type="text"
+        id="edit-download"
+        placeholder="Download">
+
+      <textarea
+        id="edit-description"
+        class="admin-textarea"
+        placeholder="Descrição"></textarea>
+
+      <div class="editor-actions">
+
+        <button
+          class="save-btn"
+          onclick="saveEdit()">
+
+          Save Changes
+
+        </button>
+
+        <button
+          class="trash-btn"
+          onclick="deleteCurrentGame()">
+
+          🗑
+
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
   <!-- FIREBASE -->
 
   <script type="module">
@@ -195,7 +262,8 @@
       ref,
       push,
       onValue,
-      remove
+      remove,
+      update
     }
     from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
 
@@ -232,6 +300,9 @@
 
     const db =
       getDatabase(app);
+
+    let currentGameId =
+      null;
 
     const ADMIN_EMAIL =
       "admin@lukehub.com";
@@ -439,10 +510,16 @@
               </div>
 
               <button
-                class="delete-btn"
-                onclick="deleteGame('${key}')">
+                class="edit-btn"
+                onclick="openEditor(
+                  '${key}',
+                  \`${game.name}\`,
+                  \`${game.image}\`,
+                  \`${game.download}\`,
+                  \`${game.description || ""}\`
+                )">
 
-                Delete
+                ✏️
 
               </button>
 
@@ -457,17 +534,118 @@
 
     }
 
+    /* OPEN */
+
+    window.openEditor = function(
+      id,
+      name,
+      image,
+      download,
+      description
+    ) {
+
+      currentGameId = id;
+
+      document
+        .getElementById(
+          "editor-modal"
+        )
+        .style.display = "flex";
+
+      document
+        .getElementById(
+          "edit-name"
+        )
+        .value = name;
+
+      document
+        .getElementById(
+          "edit-image"
+        )
+        .value = image;
+
+      document
+        .getElementById(
+          "edit-download"
+        )
+        .value = download;
+
+      document
+        .getElementById(
+          "edit-description"
+        )
+        .value = description;
+
+    }
+
+    /* CLOSE */
+
+    window.closeEditor =
+    function() {
+
+      document
+        .getElementById(
+          "editor-modal"
+        )
+        .style.display = "none";
+
+    }
+
+    /* SAVE */
+
+    window.saveEdit =
+    function() {
+
+      const name =
+        document.getElementById(
+          "edit-name"
+        ).value;
+
+      const image =
+        document.getElementById(
+          "edit-image"
+        ).value;
+
+      const download =
+        document.getElementById(
+          "edit-download"
+        ).value;
+
+      const description =
+        document.getElementById(
+          "edit-description"
+        ).value;
+
+      update(
+        ref(
+          db,
+          "games/" + currentGameId
+        ),
+        {
+          name,
+          image,
+          download,
+          description
+        }
+      );
+
+      closeEditor();
+
+    }
+
     /* DELETE */
 
-    window.deleteGame =
-    function(id) {
+    window.deleteCurrentGame =
+    function() {
 
       remove(
         ref(
           db,
-          "games/" + id
+          "games/" + currentGameId
         )
       );
+
+      closeEditor();
 
     }
 
