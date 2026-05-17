@@ -238,9 +238,10 @@
 
         <button
           class="trash-btn"
-          onclick="deleteCurrentGame()">
+          id="delete-button"
+          onclick="startDeleteCountdown()">
 
-          🗑
+          🗑 Delete
 
         </button>
 
@@ -304,6 +305,12 @@
     let currentGameId =
       null;
 
+    let deleteCountdown =
+      null;
+
+    let deleteTime =
+      5;
+
     const ADMIN_EMAIL =
       "admin@lukehub.com";
 
@@ -358,7 +365,7 @@
 
     }
 
-    /* SHOW DASHBOARD */
+    /* SHOW */
 
     function showDashboard() {
 
@@ -378,8 +385,6 @@
 
     }
 
-    /* CHECK LOGIN */
-
     if (
       localStorage.getItem(
         "adminLogged"
@@ -390,7 +395,7 @@
 
     }
 
-    /* ADD GAME */
+    /* ADD */
 
     window.addGame = function() {
 
@@ -589,6 +594,31 @@
         )
         .style.display = "none";
 
+      if (deleteCountdown) {
+
+        clearInterval(
+          deleteCountdown
+        );
+
+        deleteCountdown =
+          null;
+
+      }
+
+      deleteTime = 5;
+
+      const btn =
+        document.getElementById(
+          "delete-button"
+        );
+
+      if (btn) {
+
+        btn.innerText =
+          "🗑 Delete";
+
+      }
+
     }
 
     /* SAVE */
@@ -630,6 +660,52 @@
       );
 
       closeEditor();
+
+    }
+
+    /* DELETE COUNTDOWN */
+
+    window.startDeleteCountdown =
+    function() {
+
+      const btn =
+        document.getElementById(
+          "delete-button"
+        );
+
+      if (deleteCountdown)
+        return;
+
+      btn.innerText =
+        `Deleting in ${deleteTime}s`;
+
+      deleteCountdown =
+        setInterval(() => {
+
+          deleteTime--;
+
+          btn.innerText =
+            `Deleting in ${deleteTime}s`;
+
+          if (deleteTime <= 0) {
+
+            clearInterval(
+              deleteCountdown
+            );
+
+            deleteCountdown =
+              null;
+
+            deleteCurrentGame();
+
+            deleteTime = 5;
+
+            btn.innerText =
+              "🗑 Delete";
+
+          }
+
+        }, 1000);
 
     }
 
