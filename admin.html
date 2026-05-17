@@ -1,3 +1,5 @@
+<!-- admin.html -->
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -9,8 +11,6 @@
 
   <title>Admin Dashboard | LukeHub</title>
 
-  <!-- FONT -->
-
   <link rel="preconnect"
     href="https://fonts.googleapis.com">
 
@@ -20,8 +20,6 @@
 
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
     rel="stylesheet">
-
-  <!-- CSS -->
 
   <link rel="stylesheet"
     href="style.css">
@@ -57,11 +55,19 @@
   <div class="admin-container"
     id="login-screen">
 
-    <div class="admin-card">
+    <div class="admin-card login-card">
+
+      <div class="dashboard-badge">
+        ADMIN PANEL
+      </div>
 
       <h1>
-        Admin Login
+        Welcome Back
       </h1>
+
+      <p class="dashboard-subtitle">
+        Login to manage uploaded games.
+      </p>
 
       <input
         type="email"
@@ -93,9 +99,17 @@
 
     <div class="dashboard-header">
 
-      <h1>
-        Dashboard
-      </h1>
+      <div>
+
+        <div class="dashboard-badge">
+          CONTROL CENTER
+        </div>
+
+        <h1>
+          Dashboard
+        </h1>
+
+      </div>
 
       <button
         onclick="logout()"
@@ -107,13 +121,17 @@
 
     </div>
 
-    <!-- ADD GAME -->
+    <!-- UPLOAD -->
 
     <div class="admin-card">
 
       <h2>
         Upload Game
       </h2>
+
+      <p class="dashboard-subtitle">
+        Add a new game to the platform.
+      </p>
 
       <input
         type="text"
@@ -130,6 +148,11 @@
         id="game-download"
         placeholder="Link do download">
 
+      <textarea
+        id="game-description"
+        placeholder="Descrição do jogo"
+        class="admin-textarea"></textarea>
+
       <button
         onclick="addGame()"
         class="primary-btn">
@@ -140,13 +163,17 @@
 
     </div>
 
-    <!-- GAME LIST -->
+    <!-- LIST -->
 
     <div class="admin-card">
 
       <h2>
         Uploaded Games
       </h2>
+
+      <p class="dashboard-subtitle">
+        Manage uploaded content.
+      </p>
 
       <div id="games-list">
 
@@ -171,8 +198,6 @@
       remove
     }
     from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
-
-    /* FIREBASE CONFIG */
 
     const firebaseConfig = {
 
@@ -202,15 +227,11 @@
 
     };
 
-    /* INIT */
-
     const app =
       initializeApp(firebaseConfig);
 
     const db =
       getDatabase(app);
-
-    /* ADMIN LOGIN */
 
     const ADMIN_EMAIL =
       "admin@lukehub.com";
@@ -317,6 +338,11 @@
           "game-download"
         ).value;
 
+      const description =
+        document.getElementById(
+          "game-description"
+        ).value;
+
       if (
         !name ||
         !image ||
@@ -336,7 +362,8 @@
         {
           name,
           image,
-          download
+          download,
+          description
         }
       );
 
@@ -356,9 +383,13 @@
         "game-download"
       ).value = "";
 
+      document.getElementById(
+        "game-description"
+      ).value = "";
+
     }
 
-    /* LOAD GAMES */
+    /* LOAD */
 
     function loadGames() {
 
@@ -382,6 +413,7 @@
           if (!data) return;
 
           Object.keys(data)
+          .reverse()
           .forEach(key => {
 
             const game =
@@ -401,7 +433,7 @@
                 </h3>
 
                 <p>
-                  ${game.download}
+                  ${game.description || "No description"}
                 </p>
 
               </div>
