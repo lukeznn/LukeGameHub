@@ -812,3 +812,175 @@ input::placeholder,
   }
 
 }
+
+/* ADICIONE ISSO NO FINAL DO style.css */
+
+.dashboard {
+
+  animation:
+    fadeIn 0.4s ease;
+}
+
+.admin-card {
+
+  position: relative;
+
+  overflow: hidden;
+}
+
+.admin-card::before {
+
+  content: "";
+
+  position: absolute;
+
+  top: -100px;
+
+  right: -100px;
+
+  width: 220px;
+
+  height: 220px;
+
+  background:
+    radial-gradient(
+      rgba(139,92,246,0.18),
+      transparent 70%
+    );
+
+  pointer-events: none;
+}
+
+.dashboard-header h1 {
+
+  background:
+    linear-gradient(
+      135deg,
+      white,
+      #c4b5fd
+    );
+
+  -webkit-background-clip: text;
+
+  -webkit-text-fill-color:
+    transparent;
+}
+
+input:focus,
+.admin-textarea:focus {
+
+  border-color:
+    rgba(139,92,246,0.5);
+
+  box-shadow:
+    0 0 0 4px
+    rgba(139,92,246,0.12);
+}
+
+.uploaded-game {
+
+  transition: 0.25s;
+}
+
+.uploaded-game:hover {
+
+  transform:
+    translateY(-4px);
+
+  border-color:
+    rgba(139,92,246,0.2);
+
+  background:
+    rgba(255,255,255,0.045);
+}
+
+.editor-card {
+
+  animation:
+    modalPop 0.25s ease;
+}
+
+.trash-btn {
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  gap: 8px;
+
+  font-weight: 700;
+
+  transition: 0.25s;
+}
+
+.trash-btn:hover {
+
+  transform:
+    scale(1.03);
+
+  background:
+    #dc2626;
+}
+
+.save-btn:hover {
+
+  opacity: 0.92;
+
+  transform:
+    translateY(-2px);
+}
+
+::-webkit-scrollbar {
+
+  width: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+
+  background:
+    rgba(255,255,255,0.12);
+
+  border-radius: 999px;
+}
+
+@keyframes fadeIn {
+
+  from {
+
+    opacity: 0;
+
+    transform:
+      translateY(10px);
+  }
+
+  to {
+
+    opacity: 1;
+
+    transform:
+      translateY(0);
+  }
+
+}
+
+@keyframes modalPop {
+
+  from {
+
+    opacity: 0;
+
+    transform:
+      scale(0.94);
+  }
+
+  to {
+
+    opacity: 1;
+
+    transform:
+      scale(1);
+  }
+
+}
