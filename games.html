@@ -1,5 +1,8 @@
+<!-- games.html COMPLETO -->
+
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
 
   <meta charset="UTF-8">
@@ -52,39 +55,32 @@
 
   </header>
 
-  <!-- HERO -->
+  <!-- PAGE -->
 
-  <section class="games-hero">
+  <section class="games-page">
 
-    <div class="games-hero-content">
+    <div class="games-wrapper">
 
-      <span class="games-badge">
-        COMMUNITY PLATFORM
-      </span>
+      <div class="hero-badge">
+        GAME LIBRARY
+      </div>
 
-      <h1>
+      <h1 class="games-title">
         Explore Games
       </h1>
 
-      <p>
-        Discover community uploads,
-        launchers and downloads.
+      <p class="games-subtitle">
+        Browse uploaded games from the community.
       </p>
+
+      <div class="games-grid"
+        id="games-grid">
+
+      </div>
 
     </div>
 
   </section>
-
-  <!-- GAMES -->
-
-  <main class="modern-games-container">
-
-    <div class="games-grid"
-      id="games-grid">
-
-    </div>
-
-  </main>
 
   <!-- FIREBASE -->
 
@@ -134,7 +130,7 @@
     const db =
       getDatabase(app);
 
-    const grid =
+    const gamesGrid =
       document.getElementById(
         "games-grid"
       );
@@ -142,88 +138,78 @@
     const gamesRef =
       ref(db, "games");
 
-    onValue(
-      gamesRef,
-      snapshot => {
+    onValue(gamesRef, snapshot => {
 
-        grid.innerHTML = "";
+      gamesGrid.innerHTML = "";
 
-        const data =
-          snapshot.val();
+      const data =
+        snapshot.val();
 
-        if (!data) {
+      if (!data) {
 
-          grid.innerHTML = `
+        gamesGrid.innerHTML = `
 
-          <div class="empty-state">
+        <div class="empty-games">
 
-            <h2>
-              Nenhum jogo publicado
-            </h2>
+          <h2>
+            No games uploaded yet.
+          </h2>
 
-          </div>
+          <p>
+            Upload games from the admin dashboard.
+          </p>
 
-          `;
+        </div>
 
-          return;
+        `;
 
-        }
-
-        Object.keys(data)
-        .reverse()
-        .forEach(key => {
-
-          const game =
-            data[key];
-
-          grid.innerHTML += `
-
-          <div class="modern-game-card">
-
-            <div class="card-image">
-
-              <img
-                src="${game.image}">
-
-            </div>
-
-            <div class="modern-game-content">
-
-              <div class="game-top">
-
-                <h2>
-                  ${game.name}
-                </h2>
-
-              </div>
-
-              <p class="game-description">
-
-                ${game.description || "No description provided."}
-
-              </p>
-
-              <a href="${game.download}"
-                target="_blank">
-
-                <button class="download-modern-btn">
-
-                  Download
-
-                </button>
-
-              </a>
-
-            </div>
-
-          </div>
-
-          `;
-
-        });
+        return;
 
       }
-    );
+
+      Object.keys(data)
+      .reverse()
+      .forEach(key => {
+
+        const game =
+          data[key];
+
+        gamesGrid.innerHTML += `
+
+        <div class="game-card">
+
+          <img
+            src="${game.image}"
+            alt="${game.name}">
+
+          <div class="game-info">
+
+            <h3>
+              ${game.name}
+            </h3>
+
+            <p>
+              ${game.description || "No description"}
+            </p>
+
+            <a
+              href="${game.download}"
+              target="_blank"
+              class="download-btn">
+
+              Download
+
+            </a>
+
+          </div>
+
+        </div>
+
+        `;
+
+      });
+
+    });
 
   </script>
 
