@@ -9,8 +9,6 @@
 
   <title>Games | LukeHub</title>
 
-  <!-- FONT -->
-
   <link rel="preconnect"
     href="https://fonts.googleapis.com">
 
@@ -20,8 +18,6 @@
 
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
     rel="stylesheet">
-
-  <!-- CSS -->
 
   <link rel="stylesheet"
     href="style.css">
@@ -56,23 +52,32 @@
 
   </header>
 
-  <!-- MAIN -->
+  <!-- HERO -->
 
-  <main class="games-page">
+  <section class="games-hero">
 
-    <div class="section-header">
+    <div class="games-hero-content">
 
-      <h2>
-        Featured Games
-      </h2>
+      <span class="games-badge">
+        COMMUNITY PLATFORM
+      </span>
+
+      <h1>
+        Explore Games
+      </h1>
 
       <p>
-        Community downloads
+        Discover community uploads,
+        launchers and downloads.
       </p>
 
     </div>
 
-    <!-- GRID -->
+  </section>
+
+  <!-- GAMES -->
+
+  <main class="modern-games-container">
 
     <div class="games-grid"
       id="games-grid">
@@ -80,14 +85,6 @@
     </div>
 
   </main>
-
-  <!-- FOOTER -->
-
-  <footer class="footer">
-
-    © 2026 LukeHub
-
-  </footer>
 
   <!-- FIREBASE -->
 
@@ -102,8 +99,6 @@
       onValue
     }
     from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
-
-    /* FIREBASE CONFIG */
 
     const firebaseConfig = {
 
@@ -133,22 +128,16 @@
 
     };
 
-    /* INIT */
-
     const app =
       initializeApp(firebaseConfig);
 
     const db =
       getDatabase(app);
 
-    /* GRID */
-
     const grid =
       document.getElementById(
         "games-grid"
       );
-
-    /* LOAD GAMES */
 
     const gamesRef =
       ref(db, "games");
@@ -165,9 +154,15 @@
         if (!data) {
 
           grid.innerHTML = `
-            <p>
-              Nenhum jogo publicado.
-            </p>
+
+          <div class="empty-state">
+
+            <h2>
+              Nenhum jogo publicado
+            </h2>
+
+          </div>
+
           `;
 
           return;
@@ -175,6 +170,7 @@
         }
 
         Object.keys(data)
+        .reverse()
         .forEach(key => {
 
           const game =
@@ -182,25 +178,35 @@
 
           grid.innerHTML += `
 
-          <div class="game-card">
+          <div class="modern-game-card">
 
-            <img
-              src="${game.image}">
+            <div class="card-image">
 
-            <div class="game-content">
+              <img
+                src="${game.image}">
 
-              <h3>
-                ${game.name}
-              </h3>
+            </div>
 
-              <p>
-                Community download
+            <div class="modern-game-content">
+
+              <div class="game-top">
+
+                <h2>
+                  ${game.name}
+                </h2>
+
+              </div>
+
+              <p class="game-description">
+
+                ${game.description || "No description provided."}
+
               </p>
 
               <a href="${game.download}"
                 target="_blank">
 
-                <button class="install-btn">
+                <button class="download-modern-btn">
 
                   Download
 
