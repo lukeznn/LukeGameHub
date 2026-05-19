@@ -1,7 +1,5 @@
-<!-- games.html COMPLETO -->
-
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="en">
 
 <head>
 
@@ -11,16 +9,6 @@
     content="width=device-width, initial-scale=1.0">
 
   <title>Games | LukeHub</title>
-
-  <link rel="preconnect"
-    href="https://fonts.googleapis.com">
-
-  <link rel="preconnect"
-    href="https://fonts.gstatic.com"
-    crossorigin>
-
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
-    rel="stylesheet">
 
   <link rel="stylesheet"
     href="style.css">
@@ -65,15 +53,16 @@
         GAME LIBRARY
       </div>
 
-      <h1 class="games-title">
+      <h1 class="page-title">
         Explore Games
       </h1>
 
-      <p class="games-subtitle">
+      <p class="page-subtitle">
         Browse uploaded games from the community.
       </p>
 
-      <div class="games-grid"
+      <div
+        class="games-grid"
         id="games-grid">
 
       </div>
@@ -81,8 +70,6 @@
     </div>
 
   </section>
-
-  <!-- FIREBASE -->
 
   <script type="module">
 
@@ -117,10 +104,7 @@
         "1043413187920",
 
       appId:
-        "1:1043413187920:web:9475d6268bac3f803d8055",
-
-      measurementId:
-        "G-96HEW587C1"
+        "1:1043413187920:web:9475d6268bac3f803d8055"
 
     };
 
@@ -135,81 +119,81 @@
         "games-grid"
       );
 
-    const gamesRef =
-      ref(db, "games");
+    onValue(
+      ref(db, "games"),
+      snapshot => {
 
-    onValue(gamesRef, snapshot => {
+        gamesGrid.innerHTML = "";
 
-      gamesGrid.innerHTML = "";
+        const data =
+          snapshot.val();
 
-      const data =
-        snapshot.val();
+        if (!data) {
 
-      if (!data) {
+          gamesGrid.innerHTML = `
 
-        gamesGrid.innerHTML = `
+          <div class="panel">
 
-        <div class="empty-games">
-
-          <h2>
-            No games uploaded yet.
-          </h2>
-
-          <p>
-            Upload games from the admin dashboard.
-          </p>
-
-        </div>
-
-        `;
-
-        return;
-
-      }
-
-      Object.keys(data)
-      .reverse()
-      .forEach(key => {
-
-        const game =
-          data[key];
-
-        gamesGrid.innerHTML += `
-
-        <div class="game-card">
-
-          <img
-            src="${game.image}"
-            alt="${game.name}">
-
-          <div class="game-info">
-
-            <h3>
-              ${game.name}
-            </h3>
+            <h2>
+              No games uploaded.
+            </h2>
 
             <p>
-              ${game.description || "No description"}
+              Upload games from the admin dashboard.
             </p>
-
-            <a
-              href="${game.download}"
-              target="_blank"
-              class="download-btn">
-
-              Download
-
-            </a>
 
           </div>
 
-        </div>
+          `;
 
-        `;
+          return;
 
-      });
+        }
 
-    });
+        Object.keys(data)
+        .reverse()
+        .forEach(key => {
+
+          const game =
+            data[key];
+
+          gamesGrid.innerHTML += `
+
+          <div class="game-card">
+
+            <img
+              src="${game.image}"
+              alt="${game.name}">
+
+            <div class="game-info">
+
+              <h3>
+                ${game.name}
+              </h3>
+
+              <p>
+                ${game.description || ""}
+              </p>
+
+              <a
+                href="${game.download}"
+                target="_blank"
+                class="download-btn">
+
+                Download
+
+              </a>
+
+            </div>
+
+          </div>
+
+          `;
+
+        });
+
+      }
+    );
 
   </script>
 
