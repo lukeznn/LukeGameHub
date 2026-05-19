@@ -1,5 +1,6 @@
 /* =========================================
-   LUKEHUB FULL STYLE.CSS
+   LUKEGAMEHUB FULL STYLE.CSS
+   COMPLETE FIXED VERSION
 ========================================= */
 
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
@@ -13,19 +14,28 @@
 :root{
 
     --bg:#050816;
-    --card:#0d1224;
-    --card2:#11172d;
+    --bg2:#0b1020;
+    --card:#0f172a;
+    --card2:#131c31;
+
     --purple:#8b5cf6;
     --purple2:#7c3aed;
+
     --text:#ffffff;
     --muted:#9ca3af;
+
     --border:rgba(255,255,255,0.08);
 
 }
 
+html{
+    scroll-behavior:smooth;
+}
+
 body{
 
-    background:linear-gradient(
+    background:
+    linear-gradient(
         to bottom,
         #060816,
         #03040d
@@ -48,7 +58,6 @@ body{
     position:fixed;
 
     top:0;
-
     left:0;
 
     width:100%;
@@ -67,7 +76,8 @@ body{
 
     backdrop-filter:blur(16px);
 
-    border-bottom:1px solid rgba(255,255,255,0.04);
+    border-bottom:
+    1px solid rgba(255,255,255,0.04);
 
     z-index:9999;
 
@@ -75,9 +85,11 @@ body{
 
 .logo{
 
-    font-size:22px;
+    font-size:24px;
 
     font-weight:800;
+
+    color:white;
 
 }
 
@@ -143,9 +155,11 @@ nav a:hover{
 
     border-radius:999px;
 
-    background:rgba(139,92,246,0.12);
+    background:
+    rgba(139,92,246,0.12);
 
-    border:1px solid rgba(139,92,246,0.24);
+    border:
+    1px solid rgba(139,92,246,0.24);
 
     color:#c4b5fd;
 
@@ -167,7 +181,8 @@ nav a:hover{
 
     margin-bottom:26px;
 
-    background:linear-gradient(
+    background:
+    linear-gradient(
         135deg,
         #ffffff,
         #8b5cf6
@@ -197,25 +212,18 @@ nav a:hover{
 
 .primary-btn{
 
-    display:inline-flex;
-
-    align-items:center;
-
-    justify-content:center;
-
-    min-width:160px;
+    width:100%;
 
     height:58px;
 
-    padding:0 34px;
-
-    margin-top:22px;
+    margin-top:24px;
 
     border:none;
 
     border-radius:18px;
 
-    background:linear-gradient(
+    background:
+    linear-gradient(
         135deg,
         #8b5cf6,
         #7c3aed
@@ -231,29 +239,33 @@ nav a:hover{
 
     transition:0.25s;
 
-    text-decoration:none;
-
 }
 
 .primary-btn:hover{
 
-    transform:translateY(-3px);
+    transform:translateY(-2px);
 
-    box-shadow:0 14px 40px rgba(139,92,246,0.35);
+    box-shadow:
+    0 14px 40px
+    rgba(139,92,246,0.35);
 
 }
 
 .secondary-btn{
 
-    height:58px;
+    height:56px;
 
-    padding:0 34px;
+    padding:0 30px;
+
+    border:none;
 
     border-radius:18px;
 
-    border:1px solid var(--border);
+    background:
+    rgba(255,255,255,0.04);
 
-    background:rgba(255,255,255,0.04);
+    border:
+    1px solid rgba(255,255,255,0.08);
 
     color:white;
 
@@ -263,13 +275,12 @@ nav a:hover{
 
     transition:0.25s;
 
-    text-decoration:none;
-
 }
 
 .secondary-btn:hover{
 
-    border-color:rgba(139,92,246,0.4);
+    border-color:
+    rgba(139,92,246,0.25);
 
 }
 
@@ -291,9 +302,11 @@ nav a:hover{
 
     padding:54px;
 
-    background:rgba(255,255,255,0.03);
+    background:
+    rgba(255,255,255,0.03);
 
-    border:1px solid var(--border);
+    border:
+    1px solid rgba(255,255,255,0.08);
 
     border-radius:34px;
 
@@ -320,7 +333,7 @@ nav a:hover{
 }
 
 /* =========================================
-   GAMES
+   GAMES PAGE
 ========================================= */
 
 .games-page{
@@ -368,9 +381,11 @@ nav a:hover{
 
 .game-card{
 
-    background:rgba(255,255,255,0.03);
+    background:
+    rgba(255,255,255,0.03);
 
-    border:1px solid var(--border);
+    border:
+    1px solid rgba(255,255,255,0.08);
 
     border-radius:28px;
 
@@ -384,7 +399,8 @@ nav a:hover{
 
     transform:translateY(-6px);
 
-    border-color:rgba(139,92,246,0.25);
+    border-color:
+    rgba(139,92,246,0.25);
 
 }
 
@@ -432,7 +448,8 @@ nav a:hover{
 
     border-radius:18px;
 
-    background:linear-gradient(
+    background:
+    linear-gradient(
         135deg,
         #8b5cf6,
         #7c3aed
@@ -464,12 +481,6 @@ nav a:hover{
    ADMIN
 ========================================= */
 
-.admin-page{
-
-    padding:130px 24px 80px;
-
-}
-
 .login-screen{
 
     min-height:100vh;
@@ -479,6 +490,8 @@ nav a:hover{
     align-items:center;
 
     justify-content:center;
+
+    padding:120px 24px;
 
 }
 
@@ -490,35 +503,15 @@ nav a:hover{
 
     padding:56px;
 
-    background:rgba(255,255,255,0.03);
+    background:
+    rgba(255,255,255,0.03);
 
-    border:1px solid var(--border);
+    border:
+    1px solid rgba(255,255,255,0.08);
 
-    border-radius:36px;
+    border-radius:34px;
 
     backdrop-filter:blur(18px);
-
-}
-
-.login-badge{
-
-    display:inline-flex;
-
-    padding:12px 18px;
-
-    border-radius:999px;
-
-    background:rgba(139,92,246,0.12);
-
-    border:1px solid rgba(139,92,246,0.24);
-
-    color:#c4b5fd;
-
-    font-size:13px;
-
-    font-weight:700;
-
-    margin-bottom:30px;
 
 }
 
@@ -526,7 +519,7 @@ nav a:hover{
 
     font-size:58px;
 
-    margin-bottom:12px;
+    margin-bottom:14px;
 
 }
 
@@ -549,9 +542,11 @@ textarea{
 
     border-radius:18px;
 
-    border:1px solid var(--border);
+    border:
+    1px solid rgba(255,255,255,0.08);
 
-    background:rgba(255,255,255,0.04);
+    background:
+    rgba(255,255,255,0.04);
 
     color:white;
 
@@ -575,17 +570,19 @@ textarea{
 
 .dashboard{
 
-    display:none;
+    padding:130px 24px 80px;
 
 }
 
 .panel{
 
-    background:rgba(255,255,255,0.03);
+    background:
+    rgba(255,255,255,0.03);
 
-    border:1px solid var(--border);
+    border:
+    1px solid rgba(255,255,255,0.08);
 
-    border-radius:32px;
+    border-radius:30px;
 
     padding:34px;
 
@@ -595,7 +592,7 @@ textarea{
 
 .panel h2{
 
-    font-size:36px;
+    font-size:34px;
 
     margin-bottom:10px;
 
@@ -625,13 +622,15 @@ textarea{
 
     align-items:center;
 
-    gap:22px;
+    gap:20px;
 
-    background:rgba(255,255,255,0.03);
+    background:
+    rgba(255,255,255,0.03);
 
-    border:1px solid var(--border);
+    border:
+    1px solid rgba(255,255,255,0.08);
 
-    border-radius:26px;
+    border-radius:24px;
 
     padding:20px;
 
@@ -641,7 +640,7 @@ textarea{
 
     width:170px;
 
-    height:105px;
+    height:100px;
 
     object-fit:cover;
 
@@ -681,21 +680,14 @@ textarea{
 
     border-radius:18px;
 
-    background:rgba(139,92,246,0.12);
+    background:
+    rgba(139,92,246,0.14);
 
     color:white;
 
     font-size:20px;
 
     cursor:pointer;
-
-    transition:0.25s;
-
-}
-
-.edit-btn:hover{
-
-    background:rgba(139,92,246,0.22);
 
 }
 
@@ -709,7 +701,8 @@ textarea{
 
     inset:0;
 
-    background:rgba(0,0,0,0.78);
+    background:
+    rgba(0,0,0,0.78);
 
     display:none;
 
@@ -733,9 +726,10 @@ textarea{
 
     background:#0d1224;
 
-    border:1px solid var(--border);
+    border:
+    1px solid rgba(255,255,255,0.08);
 
-    border-radius:32px;
+    border-radius:30px;
 
 }
 
@@ -743,7 +737,7 @@ textarea{
 
     font-size:38px;
 
-    margin-bottom:12px;
+    margin-bottom:10px;
 
 }
 
@@ -751,7 +745,7 @@ textarea{
 
     color:var(--muted);
 
-    margin-bottom:24px;
+    margin-bottom:22px;
 
 }
 
@@ -831,6 +825,12 @@ textarea{
     .modal-actions{
 
         flex-direction:column;
+
+    }
+
+    nav{
+
+        gap:18px;
 
     }
 
