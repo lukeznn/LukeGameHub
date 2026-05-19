@@ -840,3 +840,47 @@ textarea{
     }
 
 }
+
+/* LOGIN BUTTON */
+
+.login-box .primary-btn{
+
+    margin-top:18px;
+
+    width:100%;
+
+    min-height:60px;
+
+    border-radius:18px;
+
+}
+
+/* HERO BUTTON */
+
+.hero .primary-btn{
+
+    width:fit-content;
+
+    padding:16px 34px;
+
+}
+
+/* DASHBOARD BUTTONS */
+
+.panel .primary-btn{
+
+    width:100%;
+
+    margin-top:18px;
+
+}
+
+/* MODAL BUTTONS */
+
+.modal-actions .primary-btn{
+
+    width:auto;
+
+    min-height:52px;
+
+}
