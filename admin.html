@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="en">
+
 <head>
 
   <meta charset="UTF-8">
@@ -7,17 +8,7 @@
   <meta name="viewport"
     content="width=device-width, initial-scale=1.0">
 
-  <title>Admin Dashboard | LukeHub</title>
-
-  <link rel="preconnect"
-    href="https://fonts.googleapis.com">
-
-  <link rel="preconnect"
-    href="https://fonts.gstatic.com"
-    crossorigin>
-
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
-    rel="stylesheet">
+  <title>LukeHub Admin</title>
 
   <link rel="stylesheet"
     href="style.css">
@@ -26,45 +17,24 @@
 
 <body>
 
-  <!-- NAVBAR -->
-
-  <header class="navbar">
-
-    <div class="logo">
-      LukeHub
-    </div>
-
-    <nav>
-
-      <a href="index.html">
-        Home
-      </a>
-
-      <a href="games.html">
-        Games
-      </a>
-
-    </nav>
-
-  </header>
-
   <!-- LOGIN -->
 
-  <div class="admin-container"
+  <div
+    class="login-screen"
     id="login-screen">
 
-    <div class="admin-card login-card">
+    <div class="login-box">
 
-      <div class="dashboard-badge">
+      <div class="hero-badge">
         ADMIN PANEL
       </div>
 
       <h1>
-        Welcome Back
+        Login
       </h1>
 
-      <p class="dashboard-subtitle">
-        Login to manage uploaded games.
+      <p>
+        Access the LukeHub dashboard.
       </p>
 
       <input
@@ -75,13 +45,13 @@
       <input
         type="password"
         id="password"
-        placeholder="Senha">
+        placeholder="Password">
 
       <button
-        onclick="login()"
-        class="primary-btn">
+        class="primary-btn"
+        onclick="login()">
 
-        Entrar
+        Enter Dashboard
 
       </button>
 
@@ -91,89 +61,66 @@
 
   <!-- DASHBOARD -->
 
-  <div class="dashboard"
-    id="dashboard"
-    style="display:none;">
+  <div
+    class="dashboard"
+    id="dashboard">
 
-    <div class="dashboard-header">
+    <div class="games-wrapper">
 
-      <div>
+      <div class="panel">
 
-        <div class="dashboard-badge">
-          CONTROL CENTER
-        </div>
+        <h2>
+          Upload Game
+        </h2>
 
-        <h1>
-          Dashboard
-        </h1>
+        <p>
+          Add a new game to the platform.
+        </p>
+
+        <input
+          type="text"
+          id="game-name"
+          placeholder="Game name">
+
+        <input
+          type="text"
+          id="game-image"
+          placeholder="Image URL">
+
+        <input
+          type="text"
+          id="game-download"
+          placeholder="Download URL">
+
+        <textarea
+          id="game-description"
+          placeholder="Game description"></textarea>
+
+        <button
+          class="primary-btn"
+          onclick="uploadGame()">
+
+          Upload Game
+
+        </button>
 
       </div>
 
-      <button
-        onclick="logout()"
-        class="secondary-btn">
+      <div class="panel">
 
-        Logout
+        <h2>
+          Uploaded Games
+        </h2>
 
-      </button>
+        <p>
+          Edit or remove uploaded games.
+        </p>
 
-    </div>
+        <div
+          class="uploaded-games"
+          id="uploaded-games">
 
-    <!-- UPLOAD -->
-
-    <div class="admin-card">
-
-      <h2>
-        Upload Game
-      </h2>
-
-      <p class="dashboard-subtitle">
-        Add a new game to the platform.
-      </p>
-
-      <input
-        type="text"
-        id="game-name"
-        placeholder="Nome do jogo">
-
-      <input
-        type="text"
-        id="game-image"
-        placeholder="Link da imagem">
-
-      <input
-        type="text"
-        id="game-download"
-        placeholder="Link do download">
-
-      <textarea
-        id="game-description"
-        placeholder="Descrição do jogo"
-        class="admin-textarea"></textarea>
-
-      <button
-        onclick="addGame()"
-        class="primary-btn">
-
-        Publicar Jogo
-
-      </button>
-
-    </div>
-
-    <!-- GAMES -->
-
-    <div class="admin-card">
-
-      <h2>
-        Uploaded Games
-      </h2>
-
-      <p class="dashboard-subtitle">
-        Manage uploaded content.
-      </p>
-
-      <div id="games-list">
+        </div>
 
       </div>
 
@@ -183,62 +130,62 @@
 
   <!-- EDIT MODAL -->
 
-  <div class="editor-modal"
+  <div
+    class="modal"
     id="editor-modal">
 
-    <div class="editor-card">
+    <div class="modal-box">
 
-      <div class="editor-top">
+      <h2>
+        Edit Game
+      </h2>
 
-        <h2>
-          Edit Game
-        </h2>
-
-        <button
-          class="close-btn"
-          onclick="closeEditor()">
-
-          ✕
-
-        </button>
-
-      </div>
+      <p>
+        Change game information.
+      </p>
 
       <input
         type="text"
         id="edit-name"
-        placeholder="Nome">
+        placeholder="Game name">
 
       <input
         type="text"
         id="edit-image"
-        placeholder="Imagem">
+        placeholder="Image URL">
 
       <input
         type="text"
         id="edit-download"
-        placeholder="Download">
+        placeholder="Download URL">
 
       <textarea
         id="edit-description"
-        class="admin-textarea"
-        placeholder="Descrição"></textarea>
+        placeholder="Game description"></textarea>
 
-      <div class="editor-actions">
+      <div class="modal-actions">
 
         <button
-          class="save-btn"
-          onclick="saveEdit()">
+          class="secondary-btn"
+          onclick="closeEditor()">
 
-          Save Changes
+          Cancel
 
         </button>
 
         <button
-          class="trash-btn"
+          class="danger-btn"
           onclick="openDeleteConfirm()">
 
-          🗑 Delete
+          Delete
+
+        </button>
+
+        <button
+          class="primary-btn"
+          onclick="saveEdit()">
+
+          Save
 
         </button>
 
@@ -248,30 +195,26 @@
 
   </div>
 
-  <!-- DELETE CONFIRM -->
+  <!-- DELETE MODAL -->
 
-  <div class="delete-modal"
+  <div
+    class="modal"
     id="delete-modal">
 
-    <div class="delete-card">
-
-      <div class="delete-icon">
-        🗑
-      </div>
+    <div class="modal-box">
 
       <h2>
-        Delete Game?
+        Delete Game
       </h2>
 
       <p>
-        This action cannot be undone.
-        You must wait 5 seconds before confirming.
+        Are you sure?
       </p>
 
-      <div class="delete-actions">
+      <div class="modal-actions">
 
         <button
-          class="cancel-delete-btn"
+          class="secondary-btn"
           onclick="closeDeleteModal()">
 
           Cancel
@@ -279,9 +222,8 @@
         </button>
 
         <button
-          class="confirm-delete-btn"
-          id="confirm-delete-btn"
-          disabled>
+          class="danger-btn"
+          id="confirm-delete-btn">
 
           Delete in 5s
 
@@ -293,8 +235,6 @@
 
   </div>
 
-  <!-- FIREBASE -->
-
   <script type="module">
 
     import { initializeApp }
@@ -305,10 +245,16 @@
       ref,
       push,
       onValue,
-      remove,
-      update
+      update,
+      remove
     }
     from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+
+    import {
+      getAuth,
+      signInWithEmailAndPassword
+    }
+    from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
     const firebaseConfig = {
 
@@ -331,10 +277,7 @@
         "1043413187920",
 
       appId:
-        "1:1043413187920:web:9475d6268bac3f803d8055",
-
-      measurementId:
-        "G-96HEW587C1"
+        "1:1043413187920:web:9475d6268bac3f803d8055"
 
     };
 
@@ -344,24 +287,14 @@
     const db =
       getDatabase(app);
 
-    let currentGameId =
-      null;
+    const auth =
+      getAuth(app);
 
-    let deleteCountdown =
-      null;
-
-    let deleteSeconds =
-      5;
-
-    const ADMIN_EMAIL =
-      "admin@lukehub.com";
-
-    const ADMIN_PASSWORD =
-      "123456";
+    let currentGameId = null;
 
     /* LOGIN */
 
-    window.login = function() {
+    window.login = async function() {
 
       const email =
         document.getElementById(
@@ -373,73 +306,37 @@
           "password"
         ).value;
 
-      if (
-        email === ADMIN_EMAIL &&
-        password === ADMIN_PASSWORD
-      ) {
+      try {
 
-        localStorage.setItem(
-          "adminLogged",
-          "true"
+        await signInWithEmailAndPassword(
+          auth,
+          email,
+          password
         );
 
-        showDashboard();
+        document.getElementById(
+          "login-screen"
+        ).style.display = "none";
 
-      } else {
+        document.getElementById(
+          "dashboard"
+        ).style.display = "block";
+
+      }
+
+      catch {
 
         alert(
-          "Dados incorretos"
+          "Invalid login."
         );
 
       }
 
     }
 
-    /* LOGOUT */
+    /* UPLOAD */
 
-    window.logout = function() {
-
-      localStorage.removeItem(
-        "adminLogged"
-      );
-
-      location.reload();
-
-    }
-
-    /* SHOW DASHBOARD */
-
-    function showDashboard() {
-
-      document
-        .getElementById(
-          "login-screen"
-        )
-        .style.display = "none";
-
-      document
-        .getElementById(
-          "dashboard"
-        )
-        .style.display = "block";
-
-      loadGames();
-
-    }
-
-    if (
-      localStorage.getItem(
-        "adminLogged"
-      ) === "true"
-    ) {
-
-      showDashboard();
-
-    }
-
-    /* ADD GAME */
-
-    window.addGame = function() {
+    window.uploadGame = function() {
 
       const name =
         document.getElementById(
@@ -461,20 +358,6 @@
           "game-description"
         ).value;
 
-      if (
-        !name ||
-        !image ||
-        !download
-      ) {
-
-        alert(
-          "Preencha tudo"
-        );
-
-        return;
-
-      }
-
       push(
         ref(db, "games"),
         {
@@ -485,196 +368,135 @@
         }
       );
 
-      alert(
-        "Jogo publicado"
-      );
-
-      document.getElementById(
-        "game-name"
-      ).value = "";
-
-      document.getElementById(
-        "game-image"
-      ).value = "";
-
-      document.getElementById(
-        "game-download"
-      ).value = "";
-
-      document.getElementById(
-        "game-description"
-      ).value = "";
-
     }
 
     /* LOAD GAMES */
 
-    function loadGames() {
+    onValue(
+      ref(db, "games"),
+      snapshot => {
 
-      const gamesList =
-        document.getElementById(
-          "games-list"
-        );
+        const data =
+          snapshot.val();
 
-      const gamesRef =
-        ref(db, "games");
+        const container =
+          document.getElementById(
+            "uploaded-games"
+          );
 
-      onValue(
-        gamesRef,
-        snapshot => {
+        container.innerHTML = "";
 
-          gamesList.innerHTML = "";
+        if (!data) return;
 
-          const data =
-            snapshot.val();
+        Object.keys(data)
+        .reverse()
+        .forEach(key => {
 
-          if (!data) return;
+          const game =
+            data[key];
 
-          Object.keys(data)
-          .reverse()
-          .forEach(key => {
+          container.innerHTML += `
 
-            const game =
-              data[key];
+          <div class="admin-game">
 
-            gamesList.innerHTML += `
+            <img src="${game.image}">
 
-            <div class="uploaded-game">
+            <div class="admin-game-info">
 
-              <img
-                src="${game.image}">
+              <h3>
+                ${game.name}
+              </h3>
 
-              <div class="uploaded-info">
-
-                <h3>
-                  ${game.name}
-                </h3>
-
-                <p>
-                  ${game.description || "No description"}
-                </p>
-
-              </div>
-
-              <button
-                class="edit-btn"
-                onclick="openEditor(
-                  '${key}',
-                  \`${game.name}\`,
-                  \`${game.image}\`,
-                  \`${game.download}\`,
-                  \`${game.description || ""}\`
-                )">
-
-                ✏️
-
-              </button>
+              <p>
+                ${game.description || ""}
+              </p>
 
             </div>
 
-            `;
+            <button
+              class="edit-btn"
+              onclick="openEditor('${key}')">
 
-          });
+              ✏️
 
-        }
-      );
+            </button>
 
-    }
+          </div>
+
+          `;
+
+        });
+
+        window.gamesData = data;
+
+      }
+    );
 
     /* OPEN EDITOR */
 
-    window.openEditor = function(
-      id,
-      name,
-      image,
-      download,
-      description
-    ) {
+    window.openEditor = function(id) {
 
       currentGameId = id;
 
-      document
-        .getElementById(
-          "editor-modal"
-        )
-        .style.display = "flex";
+      const game =
+        window.gamesData[id];
 
-      document
-        .getElementById(
-          "edit-name"
-        )
-        .value = name;
+      document.getElementById(
+        "edit-name"
+      ).value = game.name;
 
-      document
-        .getElementById(
-          "edit-image"
-        )
-        .value = image;
+      document.getElementById(
+        "edit-image"
+      ).value = game.image;
 
-      document
-        .getElementById(
-          "edit-download"
-        )
-        .value = download;
+      document.getElementById(
+        "edit-download"
+      ).value = game.download;
 
-      document
-        .getElementById(
-          "edit-description"
-        )
-        .value = description;
+      document.getElementById(
+        "edit-description"
+      ).value = game.description;
+
+      document.getElementById(
+        "editor-modal"
+      ).style.display = "flex";
 
     }
 
-    /* CLOSE EDITOR */
+    window.closeEditor = function() {
 
-    window.closeEditor =
-    function() {
-
-      document
-        .getElementById(
-          "editor-modal"
-        )
-        .style.display = "none";
-
-      closeDeleteModal();
+      document.getElementById(
+        "editor-modal"
+      ).style.display = "none";
 
     }
 
-    /* SAVE EDIT */
+    /* SAVE */
 
-    window.saveEdit =
-    function() {
-
-      const name =
-        document.getElementById(
-          "edit-name"
-        ).value;
-
-      const image =
-        document.getElementById(
-          "edit-image"
-        ).value;
-
-      const download =
-        document.getElementById(
-          "edit-download"
-        ).value;
-
-      const description =
-        document.getElementById(
-          "edit-description"
-        ).value;
+    window.saveEdit = function() {
 
       update(
-        ref(
-          db,
-          "games/" + currentGameId
-        ),
+        ref(db, "games/" + currentGameId),
         {
-          name,
-          image,
-          download,
-          description
+          name:
+            document.getElementById(
+              "edit-name"
+            ).value,
+
+          image:
+            document.getElementById(
+              "edit-image"
+            ).value,
+
+          download:
+            document.getElementById(
+              "edit-download"
+            ).value,
+
+          description:
+            document.getElementById(
+              "edit-description"
+            ).value
         }
       );
 
@@ -682,173 +504,75 @@
 
     }
 
-   <!-- DELETE MODAL -->
+    /* DELETE */
 
-<div
-  class="modal"
-  id="delete-modal">
+    window.openDeleteConfirm = function() {
 
-  <div class="modal-box">
+      const modal =
+        document.getElementById(
+          "delete-modal"
+        );
 
-    <h2>
-      Delete Game
-    </h2>
+      const btn =
+        document.getElementById(
+          "confirm-delete-btn"
+        );
 
-    <p>
-      Are you sure you want to permanently delete this game?
-    </p>
+      modal.style.display = "flex";
 
-    <div class="modal-actions">
+      let seconds = 5;
 
-      <button
-        class="secondary-btn"
-        onclick="closeDeleteModal()">
-
-        Cancel
-
-      </button>
-
-      <button
-        class="danger-btn"
-        id="confirm-delete-btn">
-
-        Delete in 5s
-
-      </button>
-
-    </div>
-
-  </div>
-
-</div>
-
-<script type="module">
-
-/* ===========================
-   DELETE CONFIRM MODAL
-=========================== */
-
-window.openDeleteConfirm = function() {
-
-  const modal =
-    document.getElementById(
-      "delete-modal"
-    );
-
-  const btn =
-    document.getElementById(
-      "confirm-delete-btn"
-    );
-
-  modal.style.display = "flex";
-
-  let seconds = 5;
-
-  btn.disabled = true;
-
-  btn.innerText =
-    `Delete in ${seconds}s`;
-
-  const timer = setInterval(() => {
-
-    seconds--;
-
-    btn.innerText =
-      `Delete in ${seconds}s`;
-
-    if (seconds <= 0) {
-
-      clearInterval(timer);
-
-      btn.disabled = false;
+      btn.disabled = true;
 
       btn.innerText =
-        "Delete Game";
+        `Delete in ${seconds}s`;
 
-      btn.onclick = () => {
+      const timer = setInterval(() => {
 
-        deleteCurrentGame();
+        seconds--;
 
-      };
+        btn.innerText =
+          `Delete in ${seconds}s`;
 
-    }
+        if (seconds <= 0) {
 
-  }, 1000);
+          clearInterval(timer);
 
-}
+          btn.disabled = false;
 
-/* ===========================
-   CLOSE DELETE MODAL
-=========================== */
+          btn.innerText =
+            "Delete Game";
 
-window.closeDeleteModal = function() {
+          btn.onclick = () => {
 
-  document.getElementById(
-    "delete-modal"
-  ).style.display = "none";
+            remove(
+              ref(
+                db,
+                "games/" + currentGameId
+              )
+            );
 
-}
+            document.getElementById(
+              "delete-modal"
+            ).style.display = "none";
 
-/* ===========================
-   FINAL DELETE
-=========================== */
+            document.getElementById(
+              "editor-modal"
+            ).style.display = "none";
 
-function deleteCurrentGame() {
+          };
 
-  remove(
-    ref(db, "games/" + currentGameId)
-  );
+        }
 
-  /* fecha confirmação */
-
-  document.getElementById(
-    "delete-modal"
-  ).style.display = "none";
-
-  /* fecha editor */
-
-  document.getElementById(
-    "editor-modal"
-  ).style.display = "none";
-
-  /* limpa */
-
-  currentGameId = null;
-
-}
-
-</script>
-
-    /* CLOSE DELETE */
-
-    window.closeDeleteModal =
-    function() {
-
-      document
-        .getElementById(
-          "delete-modal"
-        )
-        .style.display = "none";
-
-      clearInterval(
-        deleteCountdown
-      );
-
-      deleteSeconds = 5;
+      }, 1000);
 
     }
 
-    /* DELETE GAME */
+    window.closeDeleteModal = function() {
 
-    window.deleteCurrentGame =
-    function() {
-
-      remove(
-        ref(
-          db,
-          "games/" + currentGameId
-        )
-      );
+      document.getElementById(
+        "delete-modal"
+      ).style.display = "none";
 
     }
 
