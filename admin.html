@@ -682,62 +682,142 @@
 
     }
 
-    /* DELETE MODAL */
+   <!-- DELETE MODAL -->
 
-    window.openDeleteConfirm =
-    function() {
+<div
+  class="modal"
+  id="delete-modal">
 
-      const modal =
-        document.getElementById(
-          "delete-modal"
-        );
+  <div class="modal-box">
 
-      const btn =
-        document.getElementById(
-          "confirm-delete-btn"
-        );
+    <h2>
+      Delete Game
+    </h2>
 
-      modal.style.display =
-        "flex";
+    <p>
+      Are you sure you want to permanently delete this game?
+    </p>
 
-      btn.disabled = true;
+    <div class="modal-actions">
+
+      <button
+        class="secondary-btn"
+        onclick="closeDeleteModal()">
+
+        Cancel
+
+      </button>
+
+      <button
+        class="danger-btn"
+        id="confirm-delete-btn">
+
+        Delete in 5s
+
+      </button>
+
+    </div>
+
+  </div>
+
+</div>
+
+<script type="module">
+
+/* ===========================
+   DELETE CONFIRM MODAL
+=========================== */
+
+window.openDeleteConfirm = function() {
+
+  const modal =
+    document.getElementById(
+      "delete-modal"
+    );
+
+  const btn =
+    document.getElementById(
+      "confirm-delete-btn"
+    );
+
+  modal.style.display = "flex";
+
+  let seconds = 5;
+
+  btn.disabled = true;
+
+  btn.innerText =
+    `Delete in ${seconds}s`;
+
+  const timer = setInterval(() => {
+
+    seconds--;
+
+    btn.innerText =
+      `Delete in ${seconds}s`;
+
+    if (seconds <= 0) {
+
+      clearInterval(timer);
+
+      btn.disabled = false;
 
       btn.innerText =
-        `Delete in ${deleteSeconds}s`;
+        "Delete Game";
 
-      deleteCountdown =
-        setInterval(() => {
+      btn.onclick = () => {
 
-          deleteSeconds--;
+        deleteCurrentGame();
 
-          btn.innerText =
-            `Delete in ${deleteSeconds}s`;
-
-          if (deleteSeconds <= 0) {
-
-            clearInterval(
-              deleteCountdown
-            );
-
-            btn.disabled = false;
-
-            btn.innerText =
-              "Delete Game";
-
-            btn.onclick =
-              function() {
-
-                deleteCurrentGame();
-
-                closeDeleteModal();
-
-              }
-
-          }
-
-        }, 1000);
+      };
 
     }
+
+  }, 1000);
+
+}
+
+/* ===========================
+   CLOSE DELETE MODAL
+=========================== */
+
+window.closeDeleteModal = function() {
+
+  document.getElementById(
+    "delete-modal"
+  ).style.display = "none";
+
+}
+
+/* ===========================
+   FINAL DELETE
+=========================== */
+
+function deleteCurrentGame() {
+
+  remove(
+    ref(db, "games/" + currentGameId)
+  );
+
+  /* fecha confirmação */
+
+  document.getElementById(
+    "delete-modal"
+  ).style.display = "none";
+
+  /* fecha editor */
+
+  document.getElementById(
+    "editor-modal"
+  ).style.display = "none";
+
+  /* limpa */
+
+  currentGameId = null;
+
+}
+
+</script>
 
     /* CLOSE DELETE */
 
