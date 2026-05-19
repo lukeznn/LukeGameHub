@@ -157,6 +157,8 @@ nav a:hover {
   cursor: pointer;
 
   transition: 0.25s;
+
+  margin-top: 22px;
 }
 
 .primary-btn:hover {
