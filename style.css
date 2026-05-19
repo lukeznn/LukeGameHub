@@ -212,33 +212,38 @@ nav a:hover{
 
 .primary-btn{
 
-    width:100%;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
 
-    height:58px;
+    padding:16px 34px;
 
-    margin-top:24px;
+    min-height:58px;
 
     border:none;
-
     border-radius:18px;
 
-    background:
-    linear-gradient(
+    background:linear-gradient(
         135deg,
-        #8b5cf6,
-        #7c3aed
+        #9b6dff,
+        #6d3cff
     );
 
     color:white;
 
     font-size:16px;
-
     font-weight:700;
+
+    text-decoration:none;
 
     cursor:pointer;
 
     transition:0.25s;
 
+    box-shadow:
+        0 10px 30px rgba(109,60,255,0.35);
+
+    width:fit-content;
 }
 
 .primary-btn:hover{
@@ -246,9 +251,9 @@ nav a:hover{
     transform:translateY(-2px);
 
     box-shadow:
-    0 14px 40px
-    rgba(139,92,246,0.35);
+        0 14px 40px rgba(109,60,255,0.45);
 
+}
 }
 
 .secondary-btn{
